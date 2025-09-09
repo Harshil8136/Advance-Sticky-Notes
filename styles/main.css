@@ -1,0 +1,104 @@
+/**
+ * main.css
+ *
+ * Handles global styles, CSS variables, and the main application layout.
+ * UPDATED: Simplified to an edge-to-edge 50/50 split layout.
+ */
+
+/* --- 1. CSS Variables & Theming --- */
+:root {
+    --bg-app: #f4f4f9;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-primary: #d1d5db;
+    --accent-primary: #4f46e5;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --transition-speed: 0.2s;
+}
+
+[data-theme="dark"] {
+    --bg-app: #111827;
+    --text-primary: #f9fafb;
+    --text-secondary: #9ca3af;
+    --border-primary: #374151;
+}
+
+/* --- 2. Global Reset & Body Styles --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: var(--font-family);
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+}
+
+/* --- 3. Main Application Layout --- */
+.app-container {
+    display: grid;
+    grid-template-rows: 1fr auto 1fr; /* Top pane, separator, bottom pane */
+    height: 100%;
+    width: 100%;
+}
+
+.list-wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Background color is now set by JS via inline style */
+    transition: background-color var(--transition-speed) ease;
+}
+
+.list-separator {
+    height: 3px;
+    background-color: var(--border-primary);
+    cursor: ns-resize; /* Indicates it's draggable */
+}
+
+/* --- 4. Pop-up Menu Styles --- */
+/* Base styles for all pop-up menus (color, theme, etc.) */
+.context-menu, .color-menu, .theme-menu {
+    position: absolute;
+    display: none;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: 6px;
+    box-shadow: 0 4px B12px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    z-index: 2000;
+}
+
+.context-menu.is-visible, .color-menu.is-visible, .theme-menu.is-visible {
+    display: block;
+}
+
+.color-menu {
+    display: none; /* Re-declare for specificity */
+}
+
+.color-menu.is-visible {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--border-primary);
+    transition: transform var(--transition-speed) ease;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+}
