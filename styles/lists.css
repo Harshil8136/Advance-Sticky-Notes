@@ -1,0 +1,125 @@
+/**
+ * lists.css
+ *
+ * Styles for the snippet lists, individual lines, headers, and scrollbars.
+ * UPDATED: Removed list borders and compressed header padding for space optimization.
+ */
+
+/* --- 1. List Header & Controls --- */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* UPDATE: Reduced padding to make the title bar thinner */
+    padding: 0.25rem;
+    flex-shrink: 0;
+}
+
+.list-header h2 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    line-height: 1;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+.icon-btn:hover {
+    background-color: var(--border-secondary);
+    color: var(--accent-primary);
+}
+
+
+/* --- 2. Snippet List & Lines --- */
+.snippet-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* UPDATE: Border removed for a borderless design */
+    /* border: 1px solid var(--border-primary); */ 
+    border-radius: 6px; /* Kept radius for a soft edge */
+}
+
+.snippet-line {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-bottom: 1px solid var(--border-secondary);
+    line-height: 1.3;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.snippet-line:last-child {
+    border-bottom: none;
+}
+
+.line-content {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* --- 3. Interactive States --- */
+.snippet-line:hover {
+    background-color: #f9fafb;
+}
+
+.line-content[contenteditable="true"] {
+    outline: 2px solid var(--accent-primary);
+    background-color: rgba(79, 70, 229, 0.1);
+    white-space: pre-wrap;
+    width: auto;
+}
+
+.snippet-line.is-dragging {
+    opacity: 0.5;
+    background-color: var(--accent-primary);
+}
+
+.snippet-line.copied {
+    animation: flash-success 0.6s ease-out;
+}
+
+@keyframes flash-success {
+    50% { background-color: rgba(34, 197, 94, 0.2); }
+}
+
+
+/* --- 4. Custom Scrollbar --- */
+.snippet-list::-webkit-scrollbar {
+    width: 8px;
+}
+.snippet-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+.snippet-list::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.4);
+    border-radius: 4px;
+}
+.snippet-list:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.6);
+}
